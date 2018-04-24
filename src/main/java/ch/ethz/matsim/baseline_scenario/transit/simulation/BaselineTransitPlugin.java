@@ -3,6 +3,7 @@ package ch.ethz.matsim.baseline_scenario.transit.simulation;
 import java.util.Collection;
 import java.util.Collections;
 
+import ch.ethz.matsim.baseline_scenario.transit.BaselineTransitModule;
 import org.matsim.core.api.experimental.events.EventsManager;
 import org.matsim.core.config.Config;
 import org.matsim.core.mobsim.qsim.AbstractQSimPlugin;

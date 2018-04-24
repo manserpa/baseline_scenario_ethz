@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.events.PersonStuckEvent;
 import org.matsim.api.core.v01.network.Link;
@@ -39,6 +40,8 @@ public class BaselineTransitEngine implements DepartureHandler, MobsimEngine {
 
 	final private PriorityQueue<AgentDeparture> departures = new PriorityQueue<>();
 	final private PriorityQueue<AgentArrival> arrivals = new PriorityQueue<>();
+
+	private final static Logger log = Logger.getLogger(BaselineTransitEngine.class);
 
 	private class AgentDeparture implements Comparable<AgentDeparture> {
 		final public MobsimAgent agent;
@@ -87,6 +90,7 @@ public class BaselineTransitEngine implements DepartureHandler, MobsimEngine {
 	@Override
 	public boolean handleDeparture(double now, MobsimAgent agent, Id<Link> departureLinkId) {
 		if (agent.getMode().equals("pt")) {
+			log.info("agent departs");
 			Leg leg = (Leg) ((PlanAgent) agent).getCurrentPlanElement();
 			EnrichedTransitRoute route = (EnrichedTransitRoute) leg.getRoute();
 

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import ch.sbb.matsim.routing.pt.raptor.SwissRailRaptorFactory;
 import org.matsim.api.core.v01.Coord;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.network.Link;
@@ -79,7 +80,7 @@ import ch.ethz.matsim.baseline_scenario.zurich.router.parallel.ParallelPopulatio
 import ch.ethz.matsim.baseline_scenario.zurich.utils.AdjustLinkLengths;
 import ch.ethz.matsim.baseline_scenario.zurich.utils.AttributeNamesReader;
 import ch.ethz.matsim.baseline_scenario.zurich.utils.OutsideAttributeSetter;
-import ch.sbb.matsim.routing.pt.raptor.SwissRailRaptorFactory;
+
 
 public class MakeZurichScenario {
 	public static void main(String[] args) throws Exception {

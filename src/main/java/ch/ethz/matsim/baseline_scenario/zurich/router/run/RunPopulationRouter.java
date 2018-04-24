@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import ch.sbb.matsim.routing.pt.raptor.SwissRailRaptorFactory;
 import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.core.config.Config;
@@ -40,7 +41,6 @@ import ch.ethz.matsim.baseline_scenario.zurich.router.modules.PublicTransitRouti
 import ch.ethz.matsim.baseline_scenario.zurich.router.modules.SequentialRouterModule;
 import ch.ethz.matsim.baseline_scenario.zurich.router.modules.WalkRoutingModule;
 import ch.ethz.matsim.baseline_scenario.zurich.router.parallel.ParallelPopulationRouter;
-import ch.sbb.matsim.routing.pt.raptor.SwissRailRaptorFactory;
 
 public class RunPopulationRouter {
 	static public void main(String[] args) throws InterruptedException, ExecutionException {

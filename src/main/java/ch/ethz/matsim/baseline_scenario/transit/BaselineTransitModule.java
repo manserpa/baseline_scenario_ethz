@@ -1,42 +1,32 @@
 package ch.ethz.matsim.baseline_scenario.transit;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.matsim.api.core.v01.Scenario;
-import org.matsim.api.core.v01.network.Network;
-import org.matsim.core.config.Config;
-import org.matsim.core.config.groups.PlansCalcRouteConfigGroup;
-import org.matsim.core.controler.AbstractModule;
-import org.matsim.core.mobsim.qsim.AbstractQSimPlugin;
-import org.matsim.core.mobsim.qsim.ActivityEnginePlugin;
-import org.matsim.core.mobsim.qsim.PopulationPlugin;
-import org.matsim.core.mobsim.qsim.TeleportationPlugin;
-import org.matsim.core.mobsim.qsim.changeeventsengine.NetworkChangeEventsPlugin;
-import org.matsim.core.mobsim.qsim.messagequeueengine.MessageQueuePlugin;
-import org.matsim.core.mobsim.qsim.qnetsimengine.QNetsimEnginePlugin;
-import org.matsim.pt.config.TransitRouterConfigGroup;
-import org.matsim.pt.router.TransitRouter;
-import org.matsim.pt.transitSchedule.api.TransitSchedule;
-
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
-
 import ch.ethz.matsim.baseline_scenario.transit.connection.DefaultTransitConnectionFinder;
 import ch.ethz.matsim.baseline_scenario.transit.connection.TransitConnectionFinder;
 import ch.ethz.matsim.baseline_scenario.transit.routing.BaselineTransitRoutingModule;
 import ch.ethz.matsim.baseline_scenario.transit.routing.DefaultEnrichedTransitRouter;
 import ch.ethz.matsim.baseline_scenario.transit.routing.EnrichedTransitRouter;
-import ch.ethz.matsim.baseline_scenario.transit.simulation.BaselineTransitPlugin;
 import ch.ethz.matsim.baseline_scenario.zurich.cutter.utils.DefaultDepartureFinder;
 import ch.ethz.matsim.baseline_scenario.zurich.cutter.utils.DepartureFinder;
 import ch.sbb.matsim.routing.pt.raptor.SwissRailRaptorFactory;
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
+import org.matsim.api.core.v01.Scenario;
+import org.matsim.api.core.v01.network.Network;
+import org.matsim.core.config.groups.PlansCalcRouteConfigGroup;
+import org.matsim.core.controler.AbstractModule;
+import org.matsim.pt.config.TransitRouterConfigGroup;
+import org.matsim.pt.router.TransitRouter;
+import org.matsim.pt.transitSchedule.api.TransitSchedule;
 
 public class BaselineTransitModule extends AbstractModule {
 	@Override
 	public void install() {
-		bind(TransitRouter.class).toProvider(SwissRailRaptorFactory.class);
+		//bind(TransitRouter.class).toProvider(SwissRailRaptorFactory.class);
+
+		//bind(RaptorParametersForPerson.class).to(DefaultRaptorParametersForPerson.class);
+		//bind(RaptorRouteSelector.class).to(LeastCostRaptorRouteSelector.class); // just a simple default in case it ever gets used.
 		addRoutingModuleBinding("pt").to(BaselineTransitRoutingModule.class);
+
 	}
 
 	@Provides
@@ -62,6 +52,7 @@ public class BaselineTransitModule extends AbstractModule {
 		return scenario.getTransitSchedule();
 	}
 
+	/*
 	@Provides
 	@Singleton
 	public Collection<AbstractQSimPlugin> provideQSimPlugins(Config config) {
@@ -81,6 +72,7 @@ public class BaselineTransitModule extends AbstractModule {
 
 		return plugins;
 	}
+	*/
 
 	@Provides
 	@Singleton

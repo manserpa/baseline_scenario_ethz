@@ -77,7 +77,8 @@ public class DefaultEnrichedTransitRouter implements EnrichedTransitRouter {
 					EnrichedTransitRoute enrichedRoute = new DefaultEnrichedTransitRoute(originalRoute.getStartLinkId(),
 							originalRoute.getEndLinkId(), distance, connection.getInVehicleTime(),
 							connection.getWaitingTime() + additionalTransferTime, accessStopIndex, egressStopIndex,
-							originalRoute.getLineId(), originalRoute.getRouteId(), connection.getDeparture().getId());
+							originalRoute.getLineId(), originalRoute.getRouteId(), connection.getDeparture().getId(),
+							connection.getAccessStop().getStopFacility().getId(), connection.getEgressStop().getStopFacility().getId());
 
 					currentLeg.setRoute(enrichedRoute);
 					currentLeg.setDepartureTime(currentTime);
