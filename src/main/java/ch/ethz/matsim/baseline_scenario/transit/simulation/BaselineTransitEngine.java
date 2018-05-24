@@ -17,11 +17,7 @@ import org.matsim.core.mobsim.qsim.InternalInterface;
 import org.matsim.core.mobsim.qsim.interfaces.AgentCounter;
 import org.matsim.core.mobsim.qsim.interfaces.DepartureHandler;
 import org.matsim.core.mobsim.qsim.interfaces.MobsimEngine;
-import org.matsim.pt.transitSchedule.api.Departure;
-import org.matsim.pt.transitSchedule.api.TransitLine;
-import org.matsim.pt.transitSchedule.api.TransitRoute;
-import org.matsim.pt.transitSchedule.api.TransitRouteStop;
-import org.matsim.pt.transitSchedule.api.TransitSchedule;
+import org.matsim.pt.transitSchedule.api.*;
 
 import com.google.inject.Singleton;
 
@@ -97,8 +93,10 @@ public class BaselineTransitEngine implements DepartureHandler, MobsimEngine {
 			TransitLine transitLine = transitSchedule.getTransitLines().get(route.getTransitLineId());
 			TransitRoute transitRoute = transitLine.getRoutes().get(route.getTransitRouteId());
 
-			TransitRouteStop accessStop = transitRoute.getStops().get(route.getAccessStopIndex());
-			TransitRouteStop egressStop = transitRoute.getStops().get(route.getEgressStopIndex());
+			TransitStopFacility access = transitSchedule.getFacilities().get(route.getAccessStopId());
+			TransitRouteStop accessStop = transitRoute.getStop(access);
+			TransitStopFacility egress = transitSchedule.getFacilities().get(route.getEgressStopId());
+			TransitRouteStop egressStop = transitRoute.getStop(egress);
 
 			try {
 				Departure departure = departureFinder.findDeparture(transitRoute, accessStop, now);

@@ -7,7 +7,6 @@ import ch.ethz.matsim.baseline_scenario.transit.routing.DefaultEnrichedTransitRo
 import ch.ethz.matsim.baseline_scenario.transit.routing.EnrichedTransitRouter;
 import ch.ethz.matsim.baseline_scenario.zurich.cutter.utils.DefaultDepartureFinder;
 import ch.ethz.matsim.baseline_scenario.zurich.cutter.utils.DepartureFinder;
-import ch.sbb.matsim.routing.pt.raptor.SwissRailRaptorFactory;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import org.matsim.api.core.v01.Scenario;
@@ -21,12 +20,13 @@ import org.matsim.pt.transitSchedule.api.TransitSchedule;
 public class BaselineTransitModule extends AbstractModule {
 	@Override
 	public void install() {
+		// TODO remove when minibuses are enabled
 		//bind(TransitRouter.class).toProvider(SwissRailRaptorFactory.class);
 
 		//bind(RaptorParametersForPerson.class).to(DefaultRaptorParametersForPerson.class);
 		//bind(RaptorRouteSelector.class).to(LeastCostRaptorRouteSelector.class); // just a simple default in case it ever gets used.
 		addRoutingModuleBinding("pt").to(BaselineTransitRoutingModule.class);
-
+		addRoutingModuleBinding("detPt").to(BaselineTransitRoutingModule.class);
 	}
 
 	@Provides
@@ -66,7 +66,7 @@ public class BaselineTransitModule extends AbstractModule {
 			plugins.add(new NetworkChangeEventsPlugin(config));
 		}
 
-		plugins.add(new BaselineTransitPlugin(config));
+		plugins.add(new SBBTransitEnginePlugin(config));
 		plugins.add(new TeleportationPlugin(config));
 		plugins.add(new PopulationPlugin(config));
 

@@ -11,9 +11,11 @@ import org.matsim.core.population.PopulationUtils;
 import org.matsim.core.router.RoutingModule;
 import org.matsim.core.router.StageActivityTypes;
 import org.matsim.core.router.StageActivityTypesImpl;
+import org.matsim.core.router.Transit;
 import org.matsim.facilities.Facility;
 import org.matsim.pt.PtConstants;
 import org.matsim.pt.transitSchedule.api.TransitSchedule;
+import org.matsim.pt.transitSchedule.api.TransitStopFacility;
 
 public class BaselineTransitRoutingModule implements RoutingModule {
 	final private EnrichedTransitRouter transitRouter;
@@ -43,9 +45,7 @@ public class BaselineTransitRoutingModule implements RoutingModule {
 
 			if (leg.getMode().equals("pt")) {
 				EnrichedTransitRoute route = (EnrichedTransitRoute) leg.getRoute();
-
-				currentFacility = transitSchedule.getTransitLines().get(route.getTransitLineId()).getRoutes()
-						.get(route.getTransitRouteId()).getStops().get(route.getEgressStopIndex()).getStopFacility();
+				currentFacility = transitSchedule.getFacilities().get(route.getEgressStopId());
 			}
 		}
 

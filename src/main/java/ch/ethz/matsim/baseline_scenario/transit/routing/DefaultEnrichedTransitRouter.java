@@ -106,18 +106,12 @@ public class DefaultEnrichedTransitRouter implements EnrichedTransitRouter {
 
 				if (i > 0) {
 					EnrichedTransitRoute preceedingRoute = (EnrichedTransitRoute) legs.get(i - 1).getRoute();
-
-					originCoord = transitSchedule.getTransitLines().get(preceedingRoute.getTransitLineId()).getRoutes()
-							.get(preceedingRoute.getTransitRouteId()).getStops()
-							.get(preceedingRoute.getEgressStopIndex()).getStopFacility().getCoord();
+					originCoord = transitSchedule.getFacilities().get(preceedingRoute.getEgressStopId()).getCoord();
 				}
 
 				if (i < legs.size() - 2) {
 					EnrichedTransitRoute followingRoute = (EnrichedTransitRoute) legs.get(i + 1).getRoute();
-
-					destinationCoord = transitSchedule.getTransitLines().get(followingRoute.getTransitLineId())
-							.getRoutes().get(followingRoute.getTransitRouteId()).getStops()
-							.get(followingRoute.getAccessStopIndex()).getStopFacility().getCoord();
+					destinationCoord = transitSchedule.getFacilities().get(followingRoute.getAccessStopId()).getCoord();
 				}
 
 				double beelineDistance = CoordUtils.calcEuclideanDistance(originCoord, destinationCoord);
