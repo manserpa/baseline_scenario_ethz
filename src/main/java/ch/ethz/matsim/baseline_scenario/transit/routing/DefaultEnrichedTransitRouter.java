@@ -1,7 +1,8 @@
 package ch.ethz.matsim.baseline_scenario.transit.routing;
 
-import java.util.List;
-
+import ch.ethz.matsim.baseline_scenario.transit.connection.TransitConnection;
+import ch.ethz.matsim.baseline_scenario.transit.connection.TransitConnectionFinder;
+import ch.ethz.matsim.baseline_scenario.transit.connection.TransitConnectionFinder.NoConnectionFoundException;
 import org.matsim.api.core.v01.Coord;
 import org.matsim.api.core.v01.network.Network;
 import org.matsim.api.core.v01.population.Leg;
@@ -14,9 +15,7 @@ import org.matsim.pt.routes.ExperimentalTransitRoute;
 import org.matsim.pt.transitSchedule.api.TransitRoute;
 import org.matsim.pt.transitSchedule.api.TransitSchedule;
 
-import ch.ethz.matsim.baseline_scenario.transit.connection.TransitConnection;
-import ch.ethz.matsim.baseline_scenario.transit.connection.TransitConnectionFinder;
-import ch.ethz.matsim.baseline_scenario.transit.connection.TransitConnectionFinder.NoConnectionFoundException;
+import java.util.List;
 
 public class DefaultEnrichedTransitRouter implements EnrichedTransitRouter {
 	final private TransitRouter delegate;

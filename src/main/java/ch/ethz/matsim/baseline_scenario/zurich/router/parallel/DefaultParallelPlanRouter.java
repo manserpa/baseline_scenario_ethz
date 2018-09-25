@@ -7,6 +7,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 
+import ch.ethz.matsim.baseline_scenario.transit.connection.DefaultTransitConnectionFinder;
+import org.apache.log4j.Logger;
 import org.matsim.api.core.v01.population.PlanElement;
 import org.matsim.core.router.StageActivityTypes;
 import org.matsim.core.router.TripStructureUtils;
@@ -17,6 +19,9 @@ import ch.ethz.matsim.baseline_scenario.zurich.utils.ActivityWithFacility;
 import ch.ethz.matsim.baseline_scenario.zurich.utils.DefaultActivityWithFacility;
 
 public class DefaultParallelPlanRouter implements ParallelPlanRouter {
+
+	final private static Logger logger = Logger.getLogger(DefaultParallelPlanRouter.class);
+
 	final private ParallelTripRouter tripRouter;
 	final private StageActivityTypes stageActivityTypes;
 	final private ActivityFacilities activityFacilities;
@@ -41,6 +46,8 @@ public class DefaultParallelPlanRouter implements ParallelPlanRouter {
 					.get(trip.getOriginActivity().getFacilityId());
 			ActivityFacility destinationFacility = activityFacilities.getFacilities()
 					.get(trip.getDestinationActivity().getFacilityId());
+
+			logger.info("hallo");
 
 			ActivityWithFacility originActivity = new DefaultActivityWithFacility(trip.getOriginActivity(),
 					originFacility);

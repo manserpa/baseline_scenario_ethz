@@ -1,5 +1,6 @@
 package ch.ethz.matsim.baseline_scenario.transit.connection;
 
+import org.apache.log4j.Logger;
 import org.matsim.api.core.v01.Id;
 import org.matsim.core.utils.misc.Time;
 import org.matsim.pt.transitSchedule.api.Departure;
@@ -12,6 +13,8 @@ import ch.ethz.matsim.baseline_scenario.zurich.cutter.utils.DepartureFinder.NoDe
 
 public class DefaultTransitConnectionFinder implements TransitConnectionFinder {
 	final private DepartureFinder departureFinder;
+
+	final private static Logger logger = Logger.getLogger(DefaultTransitConnectionFinder.class);
 
 	public DefaultTransitConnectionFinder(DepartureFinder departureFinder) {
 		this.departureFinder = departureFinder;

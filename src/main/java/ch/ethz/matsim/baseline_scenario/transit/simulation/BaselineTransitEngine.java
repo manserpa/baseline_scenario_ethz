@@ -86,17 +86,14 @@ public class BaselineTransitEngine implements DepartureHandler, MobsimEngine {
 	@Override
 	public boolean handleDeparture(double now, MobsimAgent agent, Id<Link> departureLinkId) {
 		if (agent.getMode().equals("pt")) {
-			log.info("agent departs");
 			Leg leg = (Leg) ((PlanAgent) agent).getCurrentPlanElement();
 			EnrichedTransitRoute route = (EnrichedTransitRoute) leg.getRoute();
 
 			TransitLine transitLine = transitSchedule.getTransitLines().get(route.getTransitLineId());
 			TransitRoute transitRoute = transitLine.getRoutes().get(route.getTransitRouteId());
 
-			TransitStopFacility access = transitSchedule.getFacilities().get(route.getAccessStopId());
-			TransitRouteStop accessStop = transitRoute.getStop(access);
-			TransitStopFacility egress = transitSchedule.getFacilities().get(route.getEgressStopId());
-			TransitRouteStop egressStop = transitRoute.getStop(egress);
+			TransitRouteStop accessStop = transitRoute.getStops().get(route.getAccessStopIndex());
+			TransitRouteStop egressStop = transitRoute.getStops().get(route.getEgressStopIndex());
 
 			try {
 				Departure departure = departureFinder.findDeparture(transitRoute, accessStop, now);
