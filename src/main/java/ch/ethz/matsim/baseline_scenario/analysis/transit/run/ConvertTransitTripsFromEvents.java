@@ -26,19 +26,37 @@ import org.matsim.pt.transitSchedule.api.TransitScheduleReader;
 
 public class ConvertTransitTripsFromEvents {
 	static public void main(String[] args) throws IOException {
-		Scenario scenario = ScenarioUtils.createScenario(ConfigUtils.createConfig());
-		new MatsimNetworkReader(scenario.getNetwork()).readFile(args[0]);
-		new TransitScheduleReader(scenario).readFile(args[1]);
-		// for the reference case...
-		HashMap<Id<TransitLine>, Set<Id<TransitRoute>>> removedLines = readRemovedLines(args[2]);
 
-		StageActivityTypes stageActivityTypes = new StageActivityTypesImpl(PtConstants.TRANSIT_ACTIVITY_TYPE);
+		String path = "C:\\dev\\ethz\\output\\";
+		List<Integer> runList = new ArrayList<>();
 
-		TransitTripListener tripListener = new TransitTripListener(stageActivityTypes,
-				scenario.getNetwork(), scenario.getTransitSchedule(), removedLines);
-		Collection<TransitTripItem> trips = new EventsTransitTripReader(tripListener).readTrips(args[3]);
+		runList.add(1186);
+		runList.add(1381);
+		runList.add(1441);
+		runList.add(1735);
+		runList.add(1866);
+		runList.add(2034);
+		runList.add(2037);
+		runList.add(2123);
+		runList.add(1974);
+		runList.add(2044);
 
-		new CSVTransitTripWriter(trips).write(args[4]);
+		for(int run: runList) {
+			String fullPath = path + "var_subs_seed_" + run;
+			Scenario scenario = ScenarioUtils.createScenario(ConfigUtils.createConfig());
+			new MatsimNetworkReader(scenario.getNetwork()).readFile(fullPath + "\\output_network.xml.gz");
+			new TransitScheduleReader(scenario).readFile(fullPath + "\\output_transitSchedule.xml.gz");
+			// for the reference case...
+			HashMap<Id<TransitLine>, Set<Id<TransitRoute>>> removedLines = readRemovedLines(path + "removed_lines.csv");
+
+			StageActivityTypes stageActivityTypes = new StageActivityTypesImpl(PtConstants.TRANSIT_ACTIVITY_TYPE);
+
+			TransitTripListener tripListener = new TransitTripListener(stageActivityTypes,
+					scenario.getNetwork(), scenario.getTransitSchedule(), removedLines);
+			Collection<TransitTripItem> trips = new EventsTransitTripReader(tripListener).readTrips(fullPath + "\\output_events.xml.gz");
+
+			new CSVTransitTripWriter(trips).write(fullPath + "\\analysis\\trip_stats.csv");
+		}
 	}
 
 	public static HashMap<Id<TransitLine>, Set<Id<TransitRoute>>> readRemovedLines(String path) {
